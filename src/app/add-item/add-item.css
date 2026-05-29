@@ -1,0 +1,29 @@
+div {
+    margin-bottom: .5rem;
+}
+
+/* src/app/add-todo/add-todo.component.css */
+input {
+    padding: 10px;
+    width: 250px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-right: 10px;
+    outline: none;
+}
+
+button {
+    padding: 10px 15px;
+    background-color: #1976d2;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+button:hover {
+    background-color: #0f5ca8;
+}
