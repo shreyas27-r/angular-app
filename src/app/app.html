@@ -1,8 +1,53 @@
-<main class="main">
-  <h1>Angular App</h1>
-  <app-add-item (newTodo)="addTodo($event)"></app-add-item>
-<app-todo-list
-  [todoList]="todos"
-  (todoDeleted)="handleDeletedTodo($event)"
-  ></app-todo-list>
-</main>
+<div class="app-container">
+  <header>
+    <h1>{{ title() }}</h1>
+    <p class="subtitle">{{ remainingCount() }} item(s) remaining</p>
+  </header>
+
+  <form class="add-item-form" (ngSubmit)="addTodo()">
+    <input
+      type="text"
+      placeholder="What needs to be done?"
+      [ngModel]="newTodoText()"
+      (ngModelChange)="newTodoText.set($event)"
+      name="newTodo"
+    />
+    <button type="submit">Add</button>
+  </form>
+
+  <div class="filters">
+    <button
+      type="button"
+      [class.active]="filter() === 'all'"
+      (click)="setFilter('all')"
+    >All</button>
+    <button
+      type="button"
+      [class.active]="filter() === 'active'"
+      (click)="setFilter('active')"
+    >Active</button>
+    <button
+      type="button"
+      [class.active]="filter() === 'completed'"
+      (click)="setFilter('completed')"
+    >Completed</button>
+  </div>
+
+  @if (filteredTodos().length === 0) {
+    <p class="empty-state">No todos here — add one above! 🎉</p>
+  } @else {
+    <ul class="todo-list">
+      @for (todo of filteredTodos(); track todo.id) {
+        <li [class.completed]="todo.completed">
+          <input
+            type="checkbox"
+            [checked]="todo.completed"
+            (change)="toggleTodo(todo.id)"
+          />
+          <span>{{ todo.text }}</span>
+          <button type="button" (click)="deleteTodo(todo.id)">✕</button>
+        </li>
+      }
+    </ul>
+  }
+</div>
